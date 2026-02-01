@@ -127,4 +127,45 @@ fun String.removeWhitespace(): String {
 
 // 사용
 val result = "Hello World".removeWhitespace()  // "HelloWorld"
-```​
+```
+
+#### 7. Trailing Lambda
+```kotlin
+fun repeat(n: Int, action: () -> Unit) {
+    for(i in 1..n) action()
+}
+
+repeat(3, {println("Hello")})
+​
+// 이 때, Kotlin에서는 람다가 마지막 인자라면 괄호밖으로 분리 가능
+
+repeat(3){
+    println("Hello")
+}
+```
+
+Ktor에서 자주 보이는 패턴
+
+```kotlin
+fun routing(block: Routing.() -> Unit)
+
+rounting({
+    get("/users"){
+        call.respondText("Hello")
+    }
+})
+
+// Trailing Lambda 적용
+routing{
+    get("/users"){
+        call.respondText("Hello")
+    }
+}
+```
+
+
+
+
+
+
+
