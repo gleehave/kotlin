@@ -80,3 +80,101 @@ fun main(){
 }
 ```
 
+##### Exercise 1
+```kotlin
+fun fetchData(callback: StringBuilder.() -> Unit) {
+    println("3")
+    val builder = StringBuilder("Data received")
+    println("4")
+    builder.callback()
+    println("5")
+}
+
+fun main() {
+    fetchData {
+        // Write your code here
+        // Data received - Prddocessed
+        println("1")
+        append("- Processed")
+        println("2")
+        println(this.toString())
+        println("6")
+    }
+}
+
+3
+4
+1
+2
+Data received- Processed
+6
+5
+
+main()
+ └─ fetchData() 시작
+     ├─ print 3
+     ├─ print 4
+     ├─ callback 실행
+     │   ├─ print 1
+     │   ├─ append
+     │   ├─ print 2
+     │   ├─ print builder
+     │   └─ print 6
+     └─ print 5
+```
+
+##### Exercise 2
+```kotlin
+class Button{
+    fun onEvent(action: ButtonEvent.() -> Unit){
+        val event = ButtonEvent(
+            isRightClick=false,
+            amount=2,
+            potion=Position(100, 200)
+        )
+
+        event.action()
+    }
+}
+
+data class ButtonEvent(
+    val isRightClick: Boolean,
+    val amount: Int,
+    val position: Position
+)
+
+data class Position(
+    val x : Int,
+    val y : Int
+)
+
+fun main(){
+    val button = Button()
+
+    button.onEvent{
+        if (!isRightClick && amount == 2){
+            println("Double Click")
+        }
+    }
+}
+```
+
+##### Exercise 3
+
+```kotlin
+fun List<Int>.incremented(): List<Int> {
+    val originalList = this
+    return buildList {
+        // Write your code here
+        for (n in originalList) add(n + 1)
+    }
+}
+
+fun main() {
+    val originalList = listOf(1, 2, 3)
+    val newList = originalList.incremented()
+    println(newList)
+    // [2, 3, 4]
+}
+```
+
